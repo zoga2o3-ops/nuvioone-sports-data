@@ -20,19 +20,32 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
 
-      - name: Fetch ESPN scoreboards
-        run: python3 scripts/espn_cache.py --budget 270
-
-      - name: Publish the data branch
+      - name: Prepare the data worktree
         run: |
           set -e
-          git config user.name "nuvio-sports-data"
-          git config user.email "actions@users.noreply.github.com"
-          git checkout --orphan data
-          git add -f espn
+          git config --global user.name "nuvio-sports-data"
+          git config --global user.email "actions@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git fetch --depth=1 origin data
+            git worktree add ../data FETCH_HEAD
+          else
+            git worktree add --detach ../data
+            cd ../data
+            git checkout --orphan data
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+      - name: Fetch ESPN scoreboards
+        run: python3 scripts/espn_cache.py --output ../data/espn --budget 270
+
+      - name: Commit and push
+        working-directory: ../data
+        run: |
+          set -e
+          git add espn
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0
           fi
           git commit -m "Update ESPN cache $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push --force origin data
+          git push origin HEAD:data

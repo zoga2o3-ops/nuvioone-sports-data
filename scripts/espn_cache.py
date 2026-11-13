@@ -161,7 +161,7 @@ def write_if_changed(path: str, payload: dict) -> bool:
     return True
 
 
-def run(budget: float, gap: float, only: list[str] | None) -> int:
+def run(budget: float, gap: float, only: list[str] | None, output: str) -> int:
     now = dt.datetime.now(dt.timezone.utc)
     now_ms = int(now.timestamp() * 1000)
     days = days_to_keep(now)
@@ -176,14 +176,14 @@ def run(budget: float, gap: float, only: list[str] | None) -> int:
     rotate = int(now.timestamp() // 300) % len(leagues)
     leagues = leagues[rotate:] + leagues[:rotate]
 
-    os.makedirs(OUT_DIR, exist_ok=True)
+    os.makedirs(output, exist_ok=True)
     changed = asked = skipped = 0
     oldest = days[0][0]
     for league in leagues:
         if time_left(budget) < 5:
             skipped += 1
             continue
-        path = os.path.join(OUT_DIR, safe(league["id"]) + ".json")
+        path = os.path.join(output, safe(league["id"]) + ".json")
         existing = load_existing(path)
         kept = {day: value for day, value in existing.items() if day >= oldest}
         touched = len(kept) != len(existing)
@@ -217,9 +217,10 @@ def main() -> None:
     parser.add_argument("--budget", type=float, default=270, help="seconds for this run (default 270)")
     parser.add_argument("--gap", type=float, default=0.25, help="seconds between requests (default 0.25)")
     parser.add_argument("--leagues", default="", help="comma-separated league ids for a test run")
+    parser.add_argument("--output", default=OUT_DIR, help="folder for the JSON files (default espn)")
     args = parser.parse_args()
     only = [item for item in args.leagues.split(",") if item.strip()] if args.leagues else None
-    sys.exit(run(args.budget, args.gap, only))
+    sys.exit(run(args.budget, args.gap, only, args.output))
 
 
 if __name__ == "__main__":
