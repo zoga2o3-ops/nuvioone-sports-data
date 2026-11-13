@@ -1,0 +1,38 @@
+name: Update ESPN cache
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: espn-cache
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Fetch ESPN scoreboards
+        run: python3 scripts/espn_cache.py --budget 270
+
+      - name: Publish the data branch
+        run: |
+          set -e
+          git config user.name "nuvio-sports-data"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan data
+          git add -f espn
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "Update ESPN cache $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push --force origin data
