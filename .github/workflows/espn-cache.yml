@@ -9,6 +9,10 @@ on:
         description: "Rebuild wrestling/boxing even if the file is fresh"
         type: boolean
         default: false
+      force_leagues:
+        description: "Rebuild extra football leagues even if the index is fresh"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -54,7 +58,12 @@ jobs:
 
       - name: Fetch extra football leagues
         continue-on-error: true
-        run: python3 scripts/fotmob_cache.py --output ../data/sportsdb --games-output ../data/sportsdb/games --max-age 21600 --details-days 7
+        env:
+          FORCE_LEAGUES: ${{ inputs.force_leagues }}
+        run: |
+          EXTRA=""
+          if [ "$FORCE_LEAGUES" = "true" ]; then EXTRA="--force"; fi
+          python3 scripts/fotmob_cache.py --output ../data/sportsdb --games-output ../data/sportsdb/games --max-age 21600 --details-days 7 $EXTRA
 
       - name: Commit and push
         working-directory: ../data

@@ -48,6 +48,11 @@ GENERIC_NAMES = {
     "ligue 1", "liga i", "prva liga", "first professional league",
     "professional football league", "superliga", "stars league", "lpf",
     "liga super", "v-league", "persian gulf", "thai league",
+    # Second divisions and cups whose own name is too generic to be a guide word.
+    "2. liga", "2. division", "first division", "i liga", "liga ii", "nb ii",
+    "challenge league", "leumit league", "ykkosliiga",
+    "liga 2", "1. deild", "second professional league", "cup", "fa cup",
+    "state cup", "president's cup",
 }
 
 _last_request = 0.0

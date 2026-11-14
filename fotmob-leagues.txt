@@ -43,3 +43,60 @@
 9080|KOR|K League 1|South Korea|/leagues/9080/overview/k-league-1
 9088|VIE|V-League|Vietnam|/leagues/9088/overview/v-league
 10443|BAN|Bangladesh Football League|Bangladesh|/leagues/10443/overview/bangladesh-football-league
+
+# Second divisions and main domestic cups
+174|SVN|Slovenia Cup|Slovenia|/leagues/174/overview/slovenia-cup
+8973|SVK|2. Liga|Slovakia|/leagues/8973/overview/2-liga
+177|SVK|Slovak Cup|Slovakia|/leagues/177/overview/slovak-cup
+183|SRB|Kup Srbije|Serbia|/leagues/183/overview/kup-srbije
+197|POL|I Liga|Poland|/leagues/197/overview/i-liga
+198|POL|Puchar Polski|Poland|/leagues/198/overview/puchar-polski
+9117|HUN|NB II|Hungary|/leagues/9117/overview/nb-ii
+213|HUN|Magyar Kupa|Hungary|/leagues/213/overview/magyar-kupa
+216|ISL|1. Deild|Iceland|/leagues/216/overview/1-deild
+217|ISL|Icelandic Cup|Iceland|/leagues/217/overview/icelandic-cup
+9527|LUX|Coupe de Luxembourg|Luxembourg|/leagues/9527/overview/coupe-de-luxembourg
+9530|MDA|Cupa Moldova|Moldova|/leagues/9530/overview/cupa-moldova
+9528|MKD|Macedonian Cup|North Macedonia|/leagues/9528/overview/macedonian-cup
+9523|FRO|L?gmanssteypi?|Faroe Islands|/leagues/9523/overview/logmanssteypi
+275|CRO|Croatian Cup|Croatia|/leagues/275/overview/croatian-cup
+9521|BLR|Belarusian Cup|Belarus|/leagues/9521/overview/belarusian-cup
+9096|BUL|Second Professional League|Bulgaria|/leagues/9096/overview/second-professional-league
+271|BUL|Bulgarian Cup|Bulgaria|/leagues/271/overview/bulgarian-cup
+442|UKR|Ukraine Cup|Ukraine|/leagues/442/overview/ukraine-cup
+9143|SIN|Singapore Cup|Singapore|/leagues/9143/overview/singapore-cup
+9941|EGY|Egypt Cup|Egypt|/leagues/9941/overview/egypt-cup
+9372|IRN|Azadegan League|Iran|/leagues/9372/overview/azadegan-league
+9487|IRN|Hazfi Cup|Iran|/leagues/9487/overview/hazfi-cup
+11840|MAR|Throne Cup|Morocco|/leagues/11840/overview/throne-cup
+11030|QAT|Second Division|Qatar|/leagues/11030/overview/second-division
+11018|QAT|Amir of Qatar Cup|Qatar|/leagues/11018/overview/amir-qatar-cup
+9943|UAE|President's Cup|United Arab Emirates|/leagues/9943/overview/presidents-cup
+9116|KOR|K League 2|South Korea|/leagues/9116/overview/k-league-2
+9551|KOR|Cup|South Korea|/leagues/9551/overview/cup
+10161|VIE|C?p Qu?c gia|Vietnam|/leagues/10161/overview/cup-quoc-gia
+251|FIN|Ykkosliiga|Finland|/leagues/251/overview/ykkosliiga
+143|FIN|Suomen Cup|Finland|/leagues/143/overview/suomen-cup
+9100|CYP|2. Division|Cyprus|/leagues/9100/overview/2-division
+330|CYP|Cyprus Cup|Cyprus|/leagues/330/overview/cyprus-cup
+10056|IDN|Liga 2|Indonesia|/leagues/10056/overview/liga-2
+10059|IDN|President's Cup|Indonesia|/leagues/10059/overview/presidents-cup
+9498|THA|Thai League 2|Thailand|/leagues/9498/overview/thai-league-2
+11023|THA|FA Cup|Thailand|/leagues/11023/overview/fa-cup
+218|IRL|First Division|Ireland|/leagues/218/overview/first-division
+219|IRL|FAI Cup|Ireland|/leagues/219/overview/fai-cup
+9389|NIR|Irish Cup|Northern Ireland|/leagues/9389/overview/irish-cup
+9166|WAL|Welsh Cup|Wales|/leagues/9166/overview/welsh-cup
+163|SUI|Challenge League|Switzerland|/leagues/163/overview/challenge-league
+164|SUI|Swiss Cup|Switzerland|/leagues/164/overview/swiss-cup
+253|CZE|FNL|Czechia|/leagues/253/overview/fnl
+254|CZE|Czech Cup|Czechia|/leagues/254/overview/czech-cup
+9113|ROU|Liga II|Romania|/leagues/9113/overview/liga-ii
+190|ROU|Cupa Rom?niei|Romania|/leagues/190/overview/cupa-romaniei
+128|ISR|Leumit League|Israel|/leagues/128/overview/leumit-league
+9097|ISR|State Cup|Israel|/leagues/9097/overview/state-cup
+151|TUR|Turkish Cup|Turkiye|/leagues/151/overview/turkish-cup
+242|DEN|DBU Pokalen|Denmark|/leagues/242/overview/dbu-pokalen
+171|SWE|Svenska Cupen|Sweden|/leagues/171/overview/svenska-cupen
+206|NOR|Norgesmesterskapet|Norway|/leagues/206/overview/norgesmesterskapet
+278|AUT|Austrian Cup|Austria|/leagues/278/overview/austrian-cup
