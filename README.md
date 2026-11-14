@@ -40,8 +40,9 @@ ESPN's cricket panel are left out on purpose.
 
 `scripts/fotmob_cache.py` fills the leagues ESPN does not carry (Poland, Croatia,
 Serbia, Ukraine, Hungary, the Gulf, much of Africa and Asia, and so on) from
-FotMob's public league pages. It writes the same shapes the app's TheSportsDB
-reader already understands:
+FotMob's public league pages. The list includes top divisions, second divisions
+and main domestic cups. It writes the same shapes the app's TheSportsDB reader
+already understands:
 
 - `sportsdb/index.json` — each league with its teams, badge, guide words and
   region.
