@@ -58,12 +58,13 @@ existing files, so the extra leagues stay live without re-reading every page.
 ## Wrestling and boxing schedule
 
 `scripts/wrestling_cache.py` reads the public WWE events page, the public AEW
-events page, TNA's events page and Box.live's schedule table, then writes
+events page, TNA's events page and Box.live's schedule table (with BoxingScene's
+schedule as a fallback when Box.live blocks the runner), then writes
 `wrestling.json`:
 
 ```json
 {
-  "source": "WWE.com, AEW, TNA and Box.live, unofficial",
+  "source": "WWE.com, AEW, TNA, Box.live and BoxingScene, unofficial",
   "generatedAt": 1794608559065,
   "leagues": [
     {"key": "wwe", "badge": "...", "brands": [{"word": "raw", "badge": "..."}]},
@@ -96,5 +97,5 @@ every-five-minute cache job does not re-fetch it every run.
 - No API keys. ESPN, FotMob, WWE, AEW, TNA and Box.live are fetched from their
   public pages; this repository is not affiliated with or endorsed by any of them.
 - Sports data: ESPN and FotMob. Wrestling schedule: WWE.com, All Elite Wrestling
-  and TNA. Boxing schedule: Box.live.
+  and TNA. Boxing schedule: Box.live and BoxingScene.
 - The app falls back to asking ESPN directly when a cache file is missing or stale.

@@ -36,6 +36,7 @@ WWE_URL = "https://www.wwe.com/events"
 AEW_URL = "https://www.allelitewrestling.com/events"
 TNA_URL = "https://tnawrestling.com/events/"
 BOXING_URL = "https://box.live/upcoming-fights-schedule/"
+BOXING_FALLBACK_URL = "https://www.boxingscene.com/schedule"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/131.0 Safari/537.36")
 DEFAULT_OUT = "wrestling.json"
@@ -789,6 +790,115 @@ def parse_boxing(page: str, now: dt.datetime) -> list[dict]:
     return events
 
 
+BOXING_US_STATES = {
+    "alabama", "alaska", "arizona", "arkansas", "california", "colorado",
+    "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho",
+    "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana", "maine",
+    "maryland", "massachusetts", "michigan", "minnesota", "mississippi",
+    "missouri", "montana", "nebraska", "nevada", "new hampshire", "new jersey",
+    "new mexico", "new york", "north carolina", "north dakota", "ohio",
+    "oklahoma", "oregon", "pennsylvania", "rhode island", "south carolina",
+    "south dakota", "tennessee", "texas", "utah", "vermont", "virginia",
+    "washington", "west virginia", "wisconsin", "wyoming",
+}
+
+
+def parse_boxingscene(page: str, now: dt.datetime) -> list[dict]:
+    """BoxingScene's schedule cards, used when Box.live blocks the runner."""
+    events = []
+    cutoff = now - dt.timedelta(days=1)
+    seen = set()
+    for block in re.split(r'<div class="card[^"]*"', page)[1:]:
+        block = block[:6000]
+        href = re.search(r'href="(/events/[^"]+)"', block)
+        title = re.search(r'<h3 class="card-title">(.*?)</h3>', block, re.S)
+        when_text = re.search(r'text-hoverRed font-medium">(.*?)</div>', block, re.S)
+        if not href or not title or not when_text:
+            continue
+        name = clean_text(title.group(1))
+        date_text = clean_text(when_text.group(1))
+        match = re.search(
+            r"([A-Za-z]{3},\s+[A-Za-z]{3}\s+\d{1,2},\s+\d{4})\s*-\s*"
+            r"(\d{1,2}):(\d{2})\s*([AP]M)\s*([A-Z]{2,4})?", date_text)
+        if not match:
+            continue
+        try:
+            day = dt.datetime.strptime(match.group(1), "%a, %b %d, %Y").date()
+        except ValueError:
+            continue
+        zone = ABBR_ZONES.get((match.group(5) or "ET").upper(), "America/New_York")
+        try:
+            hour = int(match.group(2))
+            minute = int(match.group(3))
+            if match.group(4).upper() == "PM" and hour != 12:
+                hour += 12
+            if match.group(4).upper() == "AM" and hour == 12:
+                hour = 0
+            when = local_to_utc(day, hour, minute, zone)
+        except (ValueError, IndexError):
+            continue
+        if when < cutoff:
+            continue
+        venue_match = re.search(
+            r'font-medium text-zinc-300">([^<]+)</span>\s*in\s*'
+            r'<span class="font-medium text-zinc-300">([^<]+)</span>', block, re.S)
+        venue = clean_text(venue_match.group(1)) if venue_match else ""
+        place = clean_text(venue_match.group(2)) if venue_match else ""
+        city = place
+        country = ""
+        low = place.lower()
+        if any(state in low for state in BOXING_US_STATES) or "united states" in low:
+            country = "United States"
+        elif any(word in low for word in ("united kingdom", "england", "scotland", "wales")):
+            country = "United Kingdom"
+        elif "australia" in low:
+            country = "Australia"
+        elif "japan" in low:
+            country = "Japan"
+        elif "germany" in low:
+            country = "Germany"
+        elif "saudi arabia" in low:
+            country = "Saudi Arabia"
+        if "," in city:
+            city = city.split(",", 1)[0].strip()
+        slug_part = slug(href.group(1).rstrip("/").rsplit("/", 1)[-1]) or slug(name + "-" + day.isoformat())
+        if slug_part in seen:
+            continue
+        seen.add(slug_part)
+        events.append({
+            "id": "boxing-" + slug_part,
+            "name": name,
+            "league": "boxing",
+            "start": iso_utc(when),
+            "hasTime": True,
+            "venue": venue or None,
+            "city": city or None,
+            "country": country or None,
+        })
+    return events
+
+
+
+    seen_keys = set()
+    seen_ids = set()
+    out = []
+    for event in sorted(events, key=lambda item: item["start"]):
+        show_key = (event["league"], event["name"].lower(), event["start"])
+        if show_key in seen_keys:
+            continue
+        seen_keys.add(show_key)
+        base = event["id"]
+        key = base
+        while key in seen_ids:
+            key = base + "-" + event["start"][:10]
+            if key in seen_ids:
+                key = base + "-" + event["start"].replace(":", "").replace("-", "")
+        event["id"] = key
+        seen_ids.add(key)
+        out.append(event)
+    return out
+
+
 def _dedupe(events: list[dict]) -> list[dict]:
     seen_keys = set()
     seen_ids = set()
@@ -811,7 +921,7 @@ def _dedupe(events: list[dict]) -> list[dict]:
 
 
 def build(wwe_page: str, aew_page: str, tna_page: str, boxing_page: str,
-          now: dt.datetime) -> dict:
+          boxing_fallback_page: str, now: dt.datetime) -> dict:
     wwe_events, wwe_brands = parse_wwe(wwe_page, now)
     trending, trending_brands = parse_wwe_trending(wwe_page, now)
     for word, badge in trending_brands.items():
@@ -823,6 +933,8 @@ def build(wwe_page: str, aew_page: str, tna_page: str, boxing_page: str,
     aew_events, aew_brands = parse_aew(aew_page, now)
     tna_events = parse_tna(tna_page, now)
     boxing_events = parse_boxing(boxing_page, now)
+    if not boxing_events:
+        boxing_events = parse_boxingscene(boxing_fallback_page, now)
     leagues = [
         {
             "key": "wwe",
@@ -840,7 +952,7 @@ def build(wwe_page: str, aew_page: str, tna_page: str, boxing_page: str,
         {"key": "boxing", "brands": []},
     ]
     return {
-        "source": "WWE.com, AEW, TNA and Box.live, unofficial",
+        "source": "WWE.com, AEW, TNA, Box.live and BoxingScene, unofficial",
         "generatedAt": int(now.timestamp() * 1000),
         "leagues": leagues,
         "events": _dedupe(wwe_events + aew_events + tna_events + boxing_events),
@@ -894,6 +1006,7 @@ def main() -> None:
         "aew": fetch(AEW_URL),
         "tna": fetch(TNA_URL),
         "boxing": fetch(BOXING_URL),
+        "boxing_fallback": fetch(BOXING_FALLBACK_URL),
     }
     if all(page is None for page in pages.values()):
         log("All schedule pages failed; keeping the old file.")
@@ -903,7 +1016,8 @@ def main() -> None:
             log(f"{name.upper()} page failed; skipping it.")
             pages[name] = "<html></html>"
 
-    payload = build(pages["wwe"], pages["aew"], pages["tna"], pages["boxing"], now)
+    payload = build(pages["wwe"], pages["aew"], pages["tna"], pages["boxing"],
+                    pages["boxing_fallback"], now)
     changed = write_if_changed(args.output, payload)
     counts = {}
     for event in payload["events"]:
