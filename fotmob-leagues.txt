@@ -1,0 +1,45 @@
+# Extra football leagues not carried by ESPN's scoreboard.
+# id|country code|FotMob name|country|FotMob path
+# Read by scripts/fotmob_cache.py; add a line to include a league.
+118|ARM|Premier League|Armenia|/leagues/118/overview/premier-league
+173|SVN|Prva Liga|Slovenia|/leagues/173/overview/prva-liga
+176|SVK|1. liga|Slovakia|/leagues/176/overview/1-liga
+182|SRB|Super Liga|Serbia|/leagues/182/overview/super-liga
+196|POL|Ekstraklasa|Poland|/leagues/196/overview/ekstraklasa
+212|HUN|Nemzeti Bajnoks?g I|Hungary|/leagues/212/overview/nemzeti-bajnoksag-i
+215|ISL|Besta deildin|Iceland|/leagues/215/overview/besta-deildin
+225|KAZ|Premier League|Kazakhstan|/leagues/225/overview/premier-league
+226|LVA|Virsliga|Latvia|/leagues/226/overview/virsliga
+228|LTU|Toplyga|Lithuania|/leagues/228/overview/toplyga
+229|LUX|National Division|Luxembourg|/leagues/229/overview/national-division
+231|MDA|National Division|Moldova|/leagues/231/overview/national-division
+232|MNE|1. CFL|Montenegro|/leagues/232/overview/1-cfl
+248|EST|Regular Season|Estonia|/leagues/248/overview/regular-season
+249|MKD|Prva Liga|North Macedonia|/leagues/249/overview/prva-liga
+250|FRO|Premier League|Faroe Islands|/leagues/250/overview/premier-league
+252|CRO|HNL|Croatia|/leagues/252/overview/hnl
+260|ALB|Kategoria Superiore|Albania|/leagues/260/overview/kategoria-superiore
+262|AZE|Premier League|Azerbaijan|/leagues/262/overview/premier-league
+263|BLR|Premier League|Belarus|/leagues/263/overview/premier-league
+267|BIH|Premier League|Bosnia-Herzegovina|/leagues/267/overview/premier-league
+270|BUL|First Professional League|Bulgaria|/leagues/270/overview/first-professional-league
+439|GEO|Erovnuli Liga|Georgia|/leagues/439/overview/erovnuli-liga
+441|UKR|Premier League|Ukraine|/leagues/441/overview/premier-league
+461|SIN|Premier League|Singapore|/leagues/461/overview/premier-league
+516|ALG|Ligue 1|Algeria|/leagues/516/overview/ligue-1
+519|EGY|Premier League|Egypt|/leagues/519/overview/premier-league
+523|IRN|Persian Gulf|Iran|/leagues/523/overview/persian-gulf
+524|IRQ|Stars League|Iraq|/leagues/524/overview/stars-league
+529|KUW|Premier League|Kuwait|/leagues/529/overview/premier-league
+530|MAR|Botola Pro|Morocco|/leagues/530/overview/botola-pro
+535|QAT|Qatar Stars League|Qatar|/leagues/535/overview/qatar-stars-league
+538|UAE|Pro League|United Arab Emirates|/leagues/538/overview/pro-league
+540|UZB|Superliga|Uzbekistan|/leagues/540/overview/superliga
+544|TUN|Ligue I|Tunisia|/leagues/544/overview/ligue-i
+8870|NZL|Championship|New Zealand|/leagues/8870/overview/championship
+8985|MAS|Liga Super|Malaysia|/leagues/8985/overview/liga-super
+9039|PAN|LPF|Panama|/leagues/9039/overview/lpf
+9066|TAN|Premier League|Tanzania|/leagues/9066/overview/premier-league
+9080|KOR|K League 1|South Korea|/leagues/9080/overview/k-league-1
+9088|VIE|V-League|Vietnam|/leagues/9088/overview/v-league
+10443|BAN|Bangladesh Football League|Bangladesh|/leagues/10443/overview/bangladesh-football-league

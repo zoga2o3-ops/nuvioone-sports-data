@@ -1,4 +1,4 @@
-name: Update ESPN cache
+name: Update sports data
 
 on:
   schedule:
@@ -10,12 +10,12 @@ permissions:
 
 concurrency:
   group: espn-cache
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -38,14 +38,24 @@ jobs:
       - name: Fetch ESPN scoreboards
         run: python3 scripts/espn_cache.py --output ../data/espn --budget 270
 
+      - name: Fetch wrestling schedule
+        continue-on-error: true
+        run: python3 scripts/wrestling_cache.py --output ../data/wrestling.json --max-age 18000
+
+      - name: Fetch extra football leagues
+        continue-on-error: true
+        run: python3 scripts/fotmob_cache.py --output ../data/sportsdb --games-output ../data/sportsdb/games --max-age 21600 --details-days 7
+
       - name: Commit and push
         working-directory: ../data
         run: |
           set -e
           git add espn
+          if [ -d sportsdb ]; then git add sportsdb; fi
+          if [ -f wrestling.json ]; then git add wrestling.json; fi
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0
           fi
-          git commit -m "Update ESPN cache $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git commit -m "Update sports data $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push origin HEAD:data

@@ -1,11 +1,12 @@
 # Every built-in league (from the app's own SportsCatalog.kt) that goes straight to ESPN's plain
-# scoreboard endpoint, read by scripts/espn.py every 5 minutes into the shared espn/*.json cache.
+# scoreboard endpoint, read by scripts/espn_cache.py every 5 minutes into the shared espn/*.json
+# cache.
 #
 # Format per line: <app league id>|<ESPN path>|<extra query string, or blank>
-# These three mirror exactly what SportsCatalog.kt already has for the league (its id, its
-# espnPath, and its espnQuery when it has one for college sports' &groups= filter) — this file
-# was generated from that source once; keep the two in step by hand when a league is added,
-# removed, or renamed there, the same way leagues.txt is kept in step with TheSportsDB by hand.
+# These mirror exactly what SportsCatalog.kt already has for the league (its id, its espnPath,
+# and its espnQuery when it has one for college sports' &groups= filter) — this file was generated
+# from that source once; keep the two in step by hand when a league is added, removed, or renamed
+# there.
 #
 # Leagues ESPN routes through something other than its plain scoreboard — HockeyTech (the AHL,
 # ECHL, PWHL, OHL, WHL, QMJHL, USHL), the MLB Stats API (Minor League Baseball), or ESPN's own
@@ -81,6 +82,7 @@ soccer/arg.copa|soccer/arg.copa|
 soccer/aus.1|soccer/aus.1|
 soccer/aus.w.1|soccer/aus.w.1|
 soccer/aut.1|soccer/aut.1|
+soccer/aut.2|soccer/aut.2|
 soccer/bel.1|soccer/bel.1|
 soccer/bol.1|soccer/bol.1|
 soccer/bra.1|soccer/bra.1|
@@ -108,15 +110,18 @@ soccer/conmebol.america|soccer/conmebol.america|
 soccer/conmebol.libertadores|soccer/conmebol.libertadores|
 soccer/conmebol.sudamericana|soccer/conmebol.sudamericana|
 soccer/crc.1|soccer/crc.1|
+soccer/cyp.1|soccer/cyp.1|
+soccer/cze.1|soccer/cze.1|
 soccer/den.1|soccer/den.1|
+soccer/den.2|soccer/den.2|
 soccer/ecu.1|soccer/ecu.1|
 soccer/eng.1|soccer/eng.1|
 soccer/eng.2|soccer/eng.2|
 soccer/eng.3|soccer/eng.3|
 soccer/eng.4|soccer/eng.4|
 soccer/eng.charity|soccer/eng.charity|
-soccer/eng.fa|soccer/eng.fa|
 soccer/eng.fa_qual|soccer/eng.fa_qual|
+soccer/eng.fa|soccer/eng.fa|
 soccer/eng.league_cup|soccer/eng.league_cup|
 soccer/eng.trophy|soccer/eng.trophy|
 soccer/eng.w.1|soccer/eng.w.1|
@@ -128,10 +133,9 @@ soccer/esp.copa_de_la_reina|soccer/esp.copa_de_la_reina|
 soccer/esp.copa_del_rey|soccer/esp.copa_del_rey|
 soccer/esp.w.1|soccer/esp.w.1|
 soccer/fifa.cwc|soccer/fifa.cwc|
-soccer/fifa.friendly|soccer/fifa.friendly|
 soccer/fifa.friendly.w|soccer/fifa.friendly.w|
+soccer/fifa.friendly|soccer/fifa.friendly|
 soccer/fifa.olympics|soccer/fifa.olympics|
-soccer/fifa.world|soccer/fifa.world|
 soccer/fifa.world.u17|soccer/fifa.world.u17|
 soccer/fifa.worldq.afc|soccer/fifa.worldq.afc|
 soccer/fifa.worldq.caf|soccer/fifa.worldq.caf|
@@ -139,9 +143,11 @@ soccer/fifa.worldq.concacaf|soccer/fifa.worldq.concacaf|
 soccer/fifa.worldq.conmebol|soccer/fifa.worldq.conmebol|
 soccer/fifa.worldq.ofc|soccer/fifa.worldq.ofc|
 soccer/fifa.worldq.uefa|soccer/fifa.worldq.uefa|
+soccer/fifa.world|soccer/fifa.world|
 soccer/fifa.wwc|soccer/fifa.wwc|
 soccer/fifa.wworld.u17|soccer/fifa.wworld.u17|
 soccer/fifa.wworldq.uefa|soccer/fifa.wworldq.uefa|
+soccer/fin.1|soccer/fin.1|
 soccer/fra.1|soccer/fra.1|
 soccer/fra.2|soccer/fra.2|
 soccer/fra.coupe_de_france|soccer/fra.coupe_de_france|
@@ -149,11 +155,15 @@ soccer/fra.w.1|soccer/fra.w.1|
 soccer/ger.1|soccer/ger.1|
 soccer/ger.2|soccer/ger.2|
 soccer/ger.dfb_pokal|soccer/ger.dfb_pokal|
+soccer/gha.1|soccer/gha.1|
 soccer/gre.1|soccer/gre.1|
 soccer/gua.1|soccer/gua.1|
 soccer/hon.1|soccer/hon.1|
+soccer/idn.1|soccer/idn.1|
 soccer/ind.1|soccer/ind.1|
 soccer/ind.2|soccer/ind.2|
+soccer/irl.1|soccer/irl.1|
+soccer/isr.1|soccer/isr.1|
 soccer/ita.1|soccer/ita.1|
 soccer/ita.2|soccer/ita.2|
 soccer/ita.coppa_italia|soccer/ita.coppa_italia|
@@ -167,28 +177,38 @@ soccer/ned.1|soccer/ned.1|
 soccer/ned.2|soccer/ned.2|
 soccer/ned.cup|soccer/ned.cup|
 soccer/ned.w.1|soccer/ned.w.1|
+soccer/nga.1|soccer/nga.1|
+soccer/nir.1|soccer/nir.1|
 soccer/nor.1|soccer/nor.1|
-soccer/par.1|soccer/par.1|
+soccer/nor.2|soccer/nor.2|
 soccer/par.1.supercopa|soccer/par.1.supercopa|
+soccer/par.1|soccer/par.1|
 soccer/per.1|soccer/per.1|
 soccer/por.1|soccer/por.1|
 soccer/por.taca.portugal|soccer/por.taca.portugal|
+soccer/rou.1|soccer/rou.1|
 soccer/rsa.1|soccer/rsa.1|
 soccer/rus.1|soccer/rus.1|
 soccer/sco.1|soccer/sco.1|
 soccer/sco.2|soccer/sco.2|
+soccer/sco.3|soccer/sco.3|
+soccer/sco.4|soccer/sco.4|
 soccer/sco.challenge|soccer/sco.challenge|
 soccer/sco.cis|soccer/sco.cis|
 soccer/sco.tennents|soccer/sco.tennents|
 soccer/slv.1|soccer/slv.1|
+soccer/sui.1|soccer/sui.1|
 soccer/swe.1|soccer/swe.1|
+soccer/swe.2|soccer/swe.2|
+soccer/tha.1|soccer/tha.1|
 soccer/tur.1|soccer/tur.1|
+soccer/tur.2|soccer/tur.2|
 soccer/uefa.champions|soccer/uefa.champions|
-soccer/uefa.euro|soccer/uefa.euro|
 soccer/uefa.euro_u21_qual|soccer/uefa.euro_u21_qual|
-soccer/uefa.europa|soccer/uefa.europa|
 soccer/uefa.europa.conf|soccer/uefa.europa.conf|
+soccer/uefa.europa|soccer/uefa.europa|
 soccer/uefa.euroq|soccer/uefa.euroq|
+soccer/uefa.euro|soccer/uefa.euro|
 soccer/uefa.nations|soccer/uefa.nations|
 soccer/uefa.super_cup|soccer/uefa.super_cup|
 soccer/uefa.w.europa|soccer/uefa.w.europa|
@@ -205,6 +225,7 @@ soccer/usa.usl.1|soccer/usa.usl.1|
 soccer/usa.usl.l1|soccer/usa.usl.l1|
 soccer/usa.w.usl.1|soccer/usa.w.usl.1|
 soccer/ven.1|soccer/ven.1|
+soccer/wal.1|soccer/wal.1|
 tennis/atp|tennis/atp|
 tennis/wta|tennis/wta|
 volleyball/mens-college-volleyball|volleyball/mens-college-volleyball|
